@@ -26,6 +26,8 @@ function qbmain() {
     var blockedIDs = {};
     var blocked_post_count = 0;
 
+    var storageKey;
+
     function setupCSS() {
         var qbCSS = $("<style/>");
         qbCSS.html(".hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;}");
@@ -33,9 +35,25 @@ function qbmain() {
     }
 
     function loadBlocked() {
+        if(sessionStorage[storageKey] == null)
+            return;
+
+        var loadedIDs = JSON.parse(sessionStorage[storageKey]);
+        for(index in loadedIDs) {
+            var id = loadedIDs[index];
+            blockedIDs[id] = true;
+        }
     }
 
     function saveBlocked() {
+        loadBlocked();
+        var idList = [];
+        $.each(blockedIDs, function(id, value) {
+            if(value) {
+                idList[idList.length] = id;
+            }
+        });
+        sessionStorage[storageKey] = JSON.stringify(idList);
     }
 
     function updateBlockedCount() {
@@ -66,6 +84,7 @@ function qbmain() {
 
     function blockID(id) {
         blockedIDs[id] = true;
+        saveBlocked();
         processThreadBlocks();
     }
 
@@ -85,6 +104,7 @@ function qbmain() {
         blockedIDs = {};
         blocked_post_count = 0;
         updateBlockedCount();
+        sessionStorage[storageKey] = null;
         
         alert("Restored "+restored+" posts");
     }
@@ -201,6 +221,12 @@ function qbmain() {
             }
         }
     }
+
+    function getThreadNum() {
+        return /\/(\d+)(#.*)?$/.exec(document.URL)[1];
+    }
+
+    storageKey = "qblocker"+getThreadNum();
 
     setupCSS();
     loadBlocked();
