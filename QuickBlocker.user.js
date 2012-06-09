@@ -3,7 +3,7 @@
 // @namespace    macil
 // @description  Quickly block a single poster on /b/
 // @author       Macil
-// @include      http*://boards.4chan.org/b/*
+// @include      http*://boards.4chan.org/b/res/*
 // @updateURL    https://raw.github.com/Macil/QuickBlocker/master/QuickBlocker.user.js
 // @homepage     http://macil.github.com/QuickBlocker/
 // @version      1.0
