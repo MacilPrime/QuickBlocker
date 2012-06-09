@@ -22,14 +22,21 @@ function addJQuery(callback) {
 }
 
 function qbmain() {
+    var prepareID = null;
     var blockedIDs = []
+
+    function setupCSS() {
+        var qbCSS = $("<style/>");
+        qbCSS.html(".hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;}");
+        qbCSS.appendTo(document.head);
+    }
 
     function removePost(post) {
         post.fadeOut();
     }
 
-    function blockID(blockedID) {
-        blockedIDs[blockedID] = true;
+    function blockID(id) {
+        blockedIDs[id] = true;
 
         $(".thread .replyContainer").each(function() {
             var post = $(this);
@@ -41,6 +48,7 @@ function qbmain() {
     }
 
     function resetBlockedIDs() {
+        resetPrepares();
         var restored = 0;
         $(".thread .replyContainer").each(function() {
             var post = $(this);
@@ -54,12 +62,67 @@ function qbmain() {
         alert("Restored "+restored+" posts");
     }
 
+    function prepareBlock(id) {
+        resetPrepares();
+        prepareID = id;
+
+        $(".thread .replyContainer").each(function() {
+            var post = $(this);
+            var posteruid = $(".posteruid", post).first().text();
+            if(posteruid === id) {
+                $(".post", post).css("background-color","red");
+                $(".hide_poster_button", post).hide();
+                $(".hide_poster_final_button", post).show();
+                $(".hide_poster_cancel_button", post).show();
+            }
+        });
+    }
+
+    function resetPrepares() {
+        if(prepareID == null)
+            return;
+
+        $(".thread .replyContainer").each(function() {
+            var post = $(this);
+            var posteruid = $(".posteruid", post).first().text();
+            if(posteruid === prepareID) {
+                $(".post", post).css("background-color","");
+                $(".hide_poster_button", post).show();
+                $(".hide_poster_final_button", post).hide();
+                $(".hide_poster_cancel_button", post).hide();
+            }
+        });
+
+        prepareID = null;
+    }
+
     function addButton(postContainer) {
         var posteruid = $(".posteruid", postContainer).first().text();
-        var hidePosterButton = $("<a/>").text("[ -- ]").attr("href","javascript:;").click(function() {
-            blockID(posteruid);
-        });
-        $(".hide_reply_button", postContainer).append($("<br/>"), hidePosterButton);
+        var hidePosterButton = $("<a/>")
+            .text("[ -- ]")
+            .addClass("hide_poster_button")
+            .attr("href","javascript:;")
+            .click(function() {
+                prepareBlock(posteruid);
+            });
+        var hidePosterFinalButton = $("<a/>")
+            .text("[ -! ]")
+            .addClass("hide_poster_final_button")
+            .attr("href","javascript:;")
+            .hide()
+            .click(function() {
+                blockID(posteruid);
+            });
+        var hidePosterCancelButton = $("<a/>")
+            .text("[ .. ]")
+            .addClass("hide_poster_cancel_button")
+            .attr("href","javascript:;")
+            .hide()
+            .click(function() {
+                resetPrepares();
+            });
+        $(".hide_reply_button", postContainer)
+            .append($("<br/>"), hidePosterButton, hidePosterFinalButton, hidePosterCancelButton);
     }
 
     function addButtons(context) {
@@ -86,6 +149,7 @@ function qbmain() {
         });
     }
 
+    setupCSS();
     addButtons();
     setupListener();
 }
