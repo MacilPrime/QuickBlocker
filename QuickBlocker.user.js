@@ -24,6 +24,10 @@ function addJQuery(callback) {
 function qbmain() {
     var blockedIDs = []
 
+    function removePost(post) {
+        post.fadeOut();
+    }
+
     function blockID(blockedID) {
         blockedIDs[blockedID] = true;
 
@@ -31,20 +35,23 @@ function qbmain() {
             var post = $(this);
             var posteruid = $(".posteruid", post).first().text();
             if(blockedIDs[posteruid]) {
-                post.hide();
+                removePost(post);
             }
         });
     }
 
     function resetBlockedIDs() {
+        var restored = 0;
         $(".thread .replyContainer").each(function() {
             var post = $(this);
             var posteruid = $(".posteruid", post).first().text();
             if(blockedIDs[posteruid]) {
                 post.show();
+                restored++;
             }
         });
         blockedIDs = [];
+        alert("Restored "+restored+" posts");
     }
 
     function addButton(postContainer) {
@@ -59,7 +66,7 @@ function qbmain() {
         var resetButton = $("<a/>").text("Reset blocked IDs").attr("href","javascript:;").click(function() {
             resetBlockedIDs();
         });
-        $("#delform").prepend(resetButton, $("<br/>"));
+        $("#delform").prepend(resetButton, $("<br/><br/>"));
 
         $(".thread .replyContainer").each(function() {
             addButton(this);
@@ -70,11 +77,10 @@ function qbmain() {
         $(document).on("DOMNodeInserted", ".thread", function(event) {
             var tag = $(event.target);
             if(tag.hasClass("replyContainer")) {
+                addButton(tag);
                 var posteruid = $(".posteruid", tag).first().text();
                 if(blockedIDs[posteruid]) {
                     tag.hide();
-                } else {
-                    addButton(tag);
                 }
             }
         });
