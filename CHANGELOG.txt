@@ -1,0 +1,3 @@
+(2012/06/09) - v1.0
+- Initial version. Works for posts already on the page and live-loaded posts,
+  and remembers the blocked IDs for the session.
