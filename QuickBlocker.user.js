@@ -23,7 +23,8 @@ function addJQuery(callback) {
 
 function qbmain() {
     var prepareID = null;
-    var blockedIDs = []
+    var blockedIDs = {};
+    var blocked_post_count = 0;
 
     function setupCSS() {
         var qbCSS = $("<style/>");
@@ -31,24 +32,46 @@ function qbmain() {
         qbCSS.appendTo(document.head);
     }
 
-    function removePost(post) {
+    function loadBlocked() {
+    }
+
+    function saveBlocked() {
+    }
+
+    function updateBlockedCount() {
+        $("#reset_blocked_btn").text("Reset blocked IDs ("+blocked_post_count+" posts blocked in this thread)");
+    }
+
+    function removePostVisibly(post) {
         post.fadeOut();
+        blocked_post_count++;
+    }
+
+    function removePostHidden(post) {
+        post.hide();
+        blocked_post_count++;
+    }
+
+    function processThreadBlocks() {
+        $(".thread .replyContainer").filter(":visible").each(function() {
+            var post = $(this);
+            var posteruid = $(".posteruid", post).first().text();
+            if(blockedIDs[posteruid]) {
+                removePostVisibly(post);
+            }
+        });
+
+        updateBlockedCount();
     }
 
     function blockID(id) {
         blockedIDs[id] = true;
-
-        $(".thread .replyContainer").each(function() {
-            var post = $(this);
-            var posteruid = $(".posteruid", post).first().text();
-            if(blockedIDs[posteruid]) {
-                removePost(post);
-            }
-        });
+        processThreadBlocks();
     }
 
     function resetBlockedIDs() {
         resetPrepares();
+
         var restored = 0;
         $(".thread .replyContainer").each(function() {
             var post = $(this);
@@ -58,7 +81,11 @@ function qbmain() {
                 restored++;
             }
         });
-        blockedIDs = [];
+
+        blockedIDs = {};
+        blocked_post_count = 0;
+        updateBlockedCount();
+        
         alert("Restored "+restored+" posts");
     }
 
@@ -121,16 +148,12 @@ function qbmain() {
             .click(function() {
                 resetPrepares();
             });
-        $(".hide_reply_button", postContainer)
-            .append($("<br/>"), hidePosterButton, hidePosterFinalButton, hidePosterCancelButton);
+
+        $(".sideArrows", postContainer)
+            .append("<br/>", hidePosterButton, hidePosterFinalButton, hidePosterCancelButton);
     }
 
-    function addButtons(context) {
-        var resetButton = $("<a/>").text("Reset blocked IDs").attr("href","javascript:;").click(function() {
-            resetBlockedIDs();
-        });
-        $("#delform").prepend(resetButton, $("<br/><br/>"));
-
+    function addButtons() {
         $(".thread .replyContainer").each(function() {
             addButton(this);
         });
@@ -143,15 +166,47 @@ function qbmain() {
                 addButton(tag);
                 var posteruid = $(".posteruid", tag).first().text();
                 if(blockedIDs[posteruid]) {
-                    tag.hide();
+                    removePostHidden(tag);
+                    updateBlockedCount();
                 }
             }
         });
     }
 
+    function is4chanXloaded() {
+        var settingsButton = $("#navbotr a").first();
+        return settingsButton.text() == "4chan X Settings";
+    }
+
+    function setupPageEarly() {
+        var resetButton = $("<a/>").text("Reset blocked IDs")
+            .attr("id","reset_blocked_btn").attr("href","javascript:;").click(function() {
+                resetBlockedIDs();
+            });
+
+        $("#delform").prepend(resetButton, $("<br/><br/>"));
+    }
+
+    var setupTries = 0;
+    // Runs things that have to be run after 4chan X is loaded
+    function setupPageLate() {
+        if(is4chanXloaded()) {
+            addButtons();
+            setupListener();
+        } else {
+            if(setupTries++ < 10) {
+                setTimeout(setupPageLate, 100);
+            } else {
+                alert("QuickBlocker requires 4chan X!");
+            }
+        }
+    }
+
     setupCSS();
-    addButtons();
-    setupListener();
+    loadBlocked();
+    setupPageEarly();
+    processThreadBlocks();
+    setupPageLate();
 }
 
 addJQuery(qbmain);
