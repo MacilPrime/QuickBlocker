@@ -109,6 +109,16 @@ function qbmain() {
         alert("Restored "+restored+" posts");
     }
 
+    function blockPosterID(postContainer) {
+        var name = $(".name", postContainer).first().text();
+        if(name != "Anonymous") {
+            if(!confirm("You're trying to block a namefriend.\n\nContinue?"))
+                return;
+        }
+        var posteruid = $(".posteruid", postContainer).first().text();
+        blockID(posteruid);
+    }
+
     function prepareBlock(id) {
         resetPrepares();
         prepareID = id;
@@ -158,7 +168,7 @@ function qbmain() {
             .attr("href","javascript:;")
             .hide()
             .click(function() {
-                blockID(posteruid);
+                blockPosterID(postContainer);
             });
         var hidePosterCancelButton = $("<a/>")
             .text("[ .. ]")
