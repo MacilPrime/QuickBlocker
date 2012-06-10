@@ -1,3 +1,7 @@
+(2012/06/10) - v1.2
+- Works with Aeosynth 4chan X live-loading of posts.
+- Remove dependency on 4chan X.
+
 (2012/06/09) - v1.1
 - Detects Aeosynth 4chan X too now.
 
