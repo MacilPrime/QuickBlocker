@@ -180,7 +180,13 @@ function qbmain() {
             });
 
         $(".sideArrows", postContainer)
-            .append("<br/>", hidePosterButton, hidePosterFinalButton, hidePosterCancelButton);
+            .off("DOMSubtreeModified.quickblock")
+            .append("<br/>", hidePosterButton, hidePosterFinalButton, hidePosterCancelButton)
+            .on("DOMSubtreeModified.quickblock", function(event) {
+                if($(".hide_poster_button", postContainer).length == 0) {
+                    addButton(postContainer);
+                }
+            });
     }
 
     function addButtons() {
@@ -203,33 +209,16 @@ function qbmain() {
         });
     }
 
-    function is4chanXloaded() {
-        var settingsButton = $("#navbotr a").first();
-        return settingsButton.text().indexOf("4chan X") !== -1;
-    }
-
-    function setupPageEarly() {
+    function setupPage() {
         var resetButton = $("<a/>").text("Reset blocked IDs")
             .attr("id","reset_blocked_btn").attr("href","javascript:;").click(function() {
                 resetBlockedIDs();
             });
 
         $("#delform").prepend(resetButton, $("<br/><br/>"));
-    }
 
-    var setupTries = 0;
-    // Runs things that have to be run after 4chan X is loaded
-    function setupPageLate() {
-        if(is4chanXloaded()) {
-            addButtons();
-            setupListener();
-        } else {
-            if(setupTries++ < 10) {
-                setTimeout(setupPageLate, 100);
-            } else {
-                alert("QuickBlocker requires 4chan X!");
-            }
-        }
+        addButtons();
+        setupListener();
     }
 
     function getThreadNum() {
@@ -240,9 +229,8 @@ function qbmain() {
 
     setupCSS();
     loadBlocked();
-    setupPageEarly();
+    setupPage();
     processThreadBlocks();
-    setupPageLate();
 }
 
 addJQuery(qbmain);
