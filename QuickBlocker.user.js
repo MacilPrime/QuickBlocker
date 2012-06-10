@@ -205,7 +205,7 @@ function qbmain() {
 
     function is4chanXloaded() {
         var settingsButton = $("#navbotr a").first();
-        return settingsButton.text() == "4chan X Settings";
+        return settingsButton.text().indexOf("4chan X") !== -1;
     }
 
     function setupPageEarly() {
