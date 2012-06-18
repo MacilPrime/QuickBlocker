@@ -181,9 +181,9 @@ function qbmain() {
             });
 
         $(".sideArrows", postContainer)
-            .off("DOMSubtreeModified.quickblock")
+            .off("DOMNodeInserted.quickblock")
             .append("<br/>", hidePosterButton, hidePosterFinalButton, hidePosterCancelButton)
-            .on("DOMSubtreeModified.quickblock", function(event) {
+            .on("DOMNodeInserted.quickblock", function(event) {
                 if($(".hide_poster_button", postContainer).length == 0) {
                     addButton(postContainer);
                 }
