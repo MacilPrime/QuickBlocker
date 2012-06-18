@@ -30,7 +30,7 @@ function qbmain() {
 
     function setupCSS() {
         var qbCSS = $("<style/>");
-        qbCSS.html(".hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;}");
+        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;}");
         qbCSS.appendTo(document.head);
     }
 
@@ -115,6 +115,7 @@ function qbmain() {
             if(!confirm("You're trying to block a namefriend.\n\nContinue?"))
                 return;
         }
+        resetPrepares();
         var posteruid = $(".posteruid", postContainer).first().text();
         blockID(posteruid);
     }
@@ -195,15 +196,26 @@ function qbmain() {
         });
     }
 
-    function setupListener() {
-        $(document).on("DOMNodeInserted", ".thread", function(event) {
+    function setupNewPostListener() {
+        $(document).on("DOMNodeInserted", function(event) {
             var tag = $(event.target);
             if(tag.hasClass("replyContainer")) {
-                addButton(tag);
-                var posteruid = $(".posteruid", tag).first().text();
-                if(blockedIDs[posteruid]) {
-                    removePostHidden(tag);
-                    updateBlockedCount();
+                if(!tag.parent().hasClass("inline") && tag.parent().attr("id")!="qp") {
+                    addButton(tag);
+                    var posteruid = $(".posteruid", tag).first().text();
+                    if(blockedIDs[posteruid]) {
+                        removePostHidden(tag);
+                        updateBlockedCount();
+                    }
+                } else {
+                    // Always show inlined posts
+                    if(tag.is(":hidden")) {
+                        tag.show();
+                        $("<div/>")
+                            .text("Poster is blocked")
+                            .addClass("qbPosterBlockedMessage")
+                            .prependTo(tag);
+                    }
                 }
             }
         });
@@ -218,7 +230,7 @@ function qbmain() {
         $("#delform").prepend(resetButton, $("<br/><br/>"));
 
         addButtons();
-        setupListener();
+        setupNewPostListener();
     }
 
     function getThreadNum() {
