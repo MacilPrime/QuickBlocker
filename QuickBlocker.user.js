@@ -250,7 +250,7 @@ function qbmain() {
 	if(hash == null)
 	    return false;
 
-        return localStorage[storageKeyHeader+hash] == "-";
+        return localStorage[storageKeyHeader+"hash"+hash] == "-";
     }
 
     function blockPostContent(post) {
@@ -258,14 +258,14 @@ function qbmain() {
 	if(hash == null)
 	    return;
 
-	localStorage[storageKeyHeader+hash] = "-";
+	localStorage[storageKeyHeader+"hash"+hash] = "-";
     }
 
     function unblockPostContent(post) {
 	var hash = postContentHash(post);
 	if(hash == null)
 	    return;
-	delete localStorage[storageKeyHeader+hash];
+	delete localStorage[storageKeyHeader+"hash"+hash];
     }
 
     function setupCSS() {
