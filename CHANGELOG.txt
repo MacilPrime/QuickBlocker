@@ -1,3 +1,7 @@
+(2012/06/18) - v1.4
+- Fixed issue where [ -- ] button was above [ - ] button in Chrome for live-
+  loaded posts.
+
 (2012/06/18) - v1.3
 - Fix it so you can always see blocked posts in 4chan X's quote previews.
 
