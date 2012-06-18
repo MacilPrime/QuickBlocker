@@ -1,3 +1,7 @@
+(2012/06/18) - v1.5
+- Blocks by post content too now. All posts that are blocked are remembered,
+  and if they're seen again those posters are blocked too.
+
 (2012/06/18) - v1.4
 - Fixed issue where [ -- ] button was above [ - ] button in Chrome for live-
   loaded posts.
