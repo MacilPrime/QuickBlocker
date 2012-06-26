@@ -1,3 +1,6 @@
+(2012/06/26) - v1.7
+- Put strikethrough on blocked posts.
+
 (2012/06/26) - v1.6
 - Includes jQuery source, loads much faster now.
 
