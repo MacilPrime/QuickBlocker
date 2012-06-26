@@ -210,7 +210,7 @@ function qbmain() {
 		continue;
 	    simple += line.trim();
 	}
-	if(simple.length < 5)
+	if(simple.length < 10)
 	    return null;
 	return Sha1.hash(simple);
     }
