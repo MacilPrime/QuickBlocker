@@ -1,3 +1,6 @@
+(2012/06/26) - v1.6
+- Includes jQuery source, loads much faster now.
+
 (2012/06/18) - v1.5
 - Blocks by post content too now. All posts that are blocked are remembered,
   and if they're seen again those posters are blocked too.
