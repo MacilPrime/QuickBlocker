@@ -201,18 +201,20 @@ function qbmain() {
     var storageKeyHeader = "qblocker";
     var storageKey;
 
+    var blocked_post_numbers = {};
+
     function simpleTextHash(text) {
-	var lines = text.toUpperCase().split("\n");
-	var simple = "";
-	for(i in lines) {
-	    var line = lines[i];
-	    if(line.slice(0,2)==">>")
-		continue;
-	    simple += line.trim();
-	}
-	if(simple.length < 10)
-	    return null;
-	return Sha1.hash(simple);
+        var lines = text.toUpperCase().split("\n");
+        var simple = "";
+        for(i in lines) {
+            var line = lines[i];
+            if(line.slice(0,2)==">>")
+                continue;
+            simple += line.trim();
+        }
+        if(simple.length < 10)
+            return null;
+        return Sha1.hash(simple);
     }
 
     function readTextWithBRs(tag) {
@@ -239,32 +241,32 @@ function qbmain() {
     }
 
     function checkPostContent(post) {
-	// returns true if poster ought to be blocked
-	var hash = postContentHash(post);
-	if(hash == null)
-	    return false;
+        // returns true if poster ought to be blocked
+        var hash = postContentHash(post);
+        if(hash == null)
+            return false;
 
         return localStorage[storageKeyHeader+"hash"+hash] == "-";
     }
 
     function blockPostContent(post) {
-	var hash = postContentHash(post);
-	if(hash == null)
-	    return;
+        var hash = postContentHash(post);
+        if(hash == null)
+            return;
 
-	localStorage[storageKeyHeader+"hash"+hash] = "-";
+        localStorage[storageKeyHeader+"hash"+hash] = "-";
     }
 
     function unblockPostContent(post) {
-	var hash = postContentHash(post);
-	if(hash == null)
-	    return;
-	delete localStorage[storageKeyHeader+"hash"+hash];
+        var hash = postContentHash(post);
+        if(hash == null)
+            return;
+        delete localStorage[storageKeyHeader+"hash"+hash];
     }
 
     function setupCSS() {
         var qbCSS = $("<style/>");
-        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;}");
+        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;} .qbBlockedLink {text-decoration: underline line-through;}");
         qbCSS.appendTo(document.head);
     }
 
@@ -292,18 +294,31 @@ function qbmain() {
 
     function updateBlockedCount() {
         $("#reset_blocked_btn").text("Reset blocked IDs ("+blocked_post_count+" posts blocked in this thread)");
+        $(document).ready(function() {
+            $(".backlink, .quotelink")
+                .filter(function() {
+                    return blocked_post_numbers[ $(this).text().slice(2) ];
+                })
+                .addClass("qbBlockedLink");
+        });
+    }
+
+    function removePostCommon(post) {
+        blockPostContent(post);
+        blocked_post_count++;
+
+        var postnumber = parseInt( $(".postInfo .postNum a[title='Quote this post']", post).first().text() );
+        blocked_post_numbers[postnumber] = true;
     }
 
     function removePostVisibly(post) {
-	blockPostContent(post);
         post.fadeOut();
-        blocked_post_count++;
+        removePostCommon(post);
     }
 
     function removePostHidden(post) {
-	blockPostContent(post);
         post.hide();
-        blocked_post_count++;
+        removePostCommon(post);
     }
 
     function processThreadBlocks() {
@@ -329,7 +344,7 @@ function qbmain() {
 
             if(blockedIDs[posteruid]) {
                 removePostVisibly(post);
-	    }
+            }
         });
 
         updateBlockedCount();
@@ -348,6 +363,9 @@ function qbmain() {
 
     function resetBlockedIDs() {
         resetPrepares();
+
+        blocked_post_numbers = {};
+        $(".qbBlockedLink").removeClass("qbBlockedLink");
 
         var restored = 0;
         $(".thread .replyContainer").filter(":hidden").each(function() {
