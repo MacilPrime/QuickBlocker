@@ -328,22 +328,42 @@ function qbmain() {
     }
 
     function processThreadBlocks() {
-        var runAgain;
+        processThreadBlockedIDs();
+        processThreadBlocksSlow();
+    }
 
-        do {
-            runAgain = false;
-
-            $(".thread .replyContainer").filter(":visible").each(function() {
+    var slowProcessRunning = false;
+    var slowProcessNeedRunAgain = false;
+    function processThreadBlocksSlow() {
+        if(!slowProcessRunning) {
+            slowProcessRunning = true;
+            var visibleReplies = $(".thread .replyContainer").filter(":visible");
+            var count = visibleReplies.length;
+            visibleReplies.each(function(index) {
                 var post = $(this);
-                var posteruid = $(".posteruid", post).first().text();
+                setTimeout(function() {
+                    var posteruid = $(".posteruid", post).first().text();
 
-                if(!blockedIDs[posteruid] && checkPostContent(post)) {
-                    blockID(posteruid, false);
-                    runAgain = true;
-                }
+                    if(!blockedIDs[posteruid] && checkPostContent(post)) {
+                        blockID(posteruid, false);
+                        slowProcessNeedRunAgain = true;
+                    }
+
+                    if(index == count-1) {
+                        slowProcessRunning = false;
+                        if(slowProcessNeedRunAgain) {
+                            slowProcessNeedRunAgain = false;
+                            processThreadBlocks();
+                        }
+                    }
+                }, 10*index+200);
             });
-        } while(runAgain);
+        } else {
+            slowProcessNeedRunAgain = true;
+        }
+    }
 
+    function processThreadBlockedIDs() {
         $(".thread .replyContainer").filter(":visible").each(function() {
             var post = $(this);
             var posteruid = $(".posteruid", post).first().text();
