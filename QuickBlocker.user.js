@@ -213,10 +213,10 @@ function qbmain() {
         var lines = text.toUpperCase().split("\n");
         var simple = "";
         for(i in lines) {
-            var line = lines[i];
+            var line = lines[i].trim();
             if(line.slice(0,2)==">>")
                 continue;
-            simple += line.trim();
+            simple += line;
         }
         if(simple.length < 10)
             return null;
