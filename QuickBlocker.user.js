@@ -337,7 +337,7 @@ function qbmain() {
     function processThreadBlocksSlow() {
         if(!slowProcessRunning) {
             slowProcessRunning = true;
-            var visibleReplies = $(".thread .replyContainer").filter(":visible");
+            var visibleReplies = $(".thread > .replyContainer").filter(":visible");
             var count = visibleReplies.length;
             visibleReplies.each(function(index) {
                 var post = $(this);
@@ -364,7 +364,7 @@ function qbmain() {
     }
 
     function processThreadBlockedIDs() {
-        $(".thread .replyContainer").filter(":visible").each(function() {
+        $(".thread > .replyContainer").filter(":visible").each(function() {
             var post = $(this);
             var posteruid = $(".posteruid", post).first().text();
 
