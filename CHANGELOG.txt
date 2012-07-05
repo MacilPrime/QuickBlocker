@@ -1,3 +1,7 @@
+(2012/06/27) - v1.9
+- When a new post is loaded, check if it's a blocked ID before checking the
+  post content.
+
 (2012/06/27) - v1.8
 - Efficiency+responsiveness improvements:
 - Use native SHA1 in Firefox with Scriptish.
