@@ -503,15 +503,15 @@ function qbmain() {
         $(document).on("DOMNodeInserted", function(event) {
             var tag = $(event.target);
             if(tag.hasClass("replyContainer")) {
-                if(!tag.parent().hasClass("inline") && tag.parent().attr("id")!="qp") {
+                if(!tag.parent().is(".inline, #qp")) {
                     addButton(tag);
                     var posteruid = $(".posteruid", tag).first().text();
 
-                    if(checkPostContent(tag)) {
-                        blockID(posteruid);
-                    } else if(blockedIDs[posteruid]) {
+                    if(blockedIDs[posteruid]) {
                         removePostHidden(tag);
                         updateBlockedCount();
+                    } else if(checkPostContent(tag)) {
+                        blockID(posteruid);
                     }
                 } else {
                     // Always show inlined posts
