@@ -6,7 +6,7 @@
 // @include      http*://boards.4chan.org/b/res/*
 // @updateURL    https://raw.github.com/Macil/QuickBlocker/master/QuickBlocker.user.js
 // @homepage     http://macil.github.com/QuickBlocker/
-// @version      1.10
+// @version      1.11
 // @icon         http://i.imgur.com/aUTYg.png
 // ==/UserScript==
 
@@ -276,7 +276,7 @@ function qbmain() {
 
     function setupCSS() {
         var qbCSS = $("<style/>");
-        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;} .qbBlockedLink {text-decoration: underline line-through;}");
+        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;} .qbBlockedLink {text-decoration: underline line-through;} .qb-button-set {float: left;}");
         qbCSS.appendTo(document.head);
     }
 
@@ -461,7 +461,12 @@ function qbmain() {
         prepareID = null;
     }
 
-    function addButton(postContainer) {
+    function addButton(postContainer, nowait) {
+        if (!nowait) {
+            setTimeout(addButton, 1, postContainer, 1);
+            return;
+        }
+        
         var posteruid = $(".posteruid", postContainer).first().text();
         var hidePosterButton = $("<a/>")
             .text("[ -- ]")
@@ -487,19 +492,23 @@ function qbmain() {
                 resetPrepares();
             });
 
-        $(".sideArrows", postContainer)
-            .off("DOMNodeInserted.quickblock")
-            .append("<br/>", hidePosterButton, hidePosterFinalButton, hidePosterCancelButton)
-            .on("DOMNodeInserted.quickblock", function(event) {
-                if($(".hide_poster_button", postContainer).length == 0) {
-                    addButton(postContainer);
-                }
-            });
+        var hideButtonSet = $("<div/>")
+            .addClass("qb-button-set")
+            .append(hidePosterButton, hidePosterFinalButton, hidePosterCancelButton);
+
+        $(".hide-reply-button", postContainer)
+            .after(hideButtonSet)
+            .prependTo(hideButtonSet);
     }
 
-    function addButtons() {
+    function addButtons(nowait) {
+        if (!nowait) {
+            setTimeout(addButtons, 1, 1);
+            return;
+        }
+        
         $(".thread .replyContainer").each(function() {
-            addButton(this);
+            addButton(this, 1);
         });
     }
 

@@ -1,3 +1,6 @@
+(2013/05/19) - v1.11
+- Updated for 4chan X v3.
+
 (2013/04/27) - v1.10
 - Fix jQuery conflict issues.
 - Upgrade jQuery to v2.0.0.
