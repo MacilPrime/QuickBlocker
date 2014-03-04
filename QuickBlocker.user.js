@@ -468,14 +468,14 @@ function qbmain() {
         }
         
         var posteruid = $(".posteruid", postContainer).first().text();
-        var hidePosterButton = $("<a/>")
+        var hidePosterButton = $("<br/><a/>")
             .text("[ -- ]")
             .addClass("hide_poster_button")
             .attr("href","javascript:;")
             .click(function() {
                 prepareBlock(posteruid);
             });
-        var hidePosterFinalButton = $("<a/>")
+        var hidePosterFinalButton = $("<br/><a/>")
             .text("[ -! ]")
             .addClass("hide_poster_final_button")
             .attr("href","javascript:;")
@@ -496,7 +496,7 @@ function qbmain() {
             .addClass("qb-button-set")
             .append(hidePosterButton, hidePosterFinalButton, hidePosterCancelButton);
 
-        $(".hide-reply-button", postContainer)
+        $(".hide-post-button", postContainer)
             .after(hideButtonSet)
             .prependTo(hideButtonSet);
     }
