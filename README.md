@@ -1,4 +1,4 @@
-Only install this fork if you have versions v3.19.0 (Mayhem) or v3.12.1 (ihavenoface) or newer.
+Only install this fork if you have 4chan X versions v3.19.0 (Mayhem) or v3.12.1 (ihavenoface) or newer.
 
 Credit to Macil for the original script
 
