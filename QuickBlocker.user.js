@@ -5,7 +5,6 @@
 // @author       Eddy
 // @include      http*://boards.4chan.org/b/res/*
 // @updateURL    https://raw.github.com/specialeddy/QuickBlocker/master/QuickBlocker.user.js
-// @homepage     http://specialeddy.github.com/QuickBlocker/
 // @version      1.12
 // @icon         http://i.imgur.com/aUTYg.png
 // ==/UserScript==
