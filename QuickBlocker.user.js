@@ -276,7 +276,7 @@ function qbmain() {
 
     function setupCSS() {
         var qbCSS = $("<style/>");
-        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;} .qbBlockedLink {text-decoration: underline line-through;} .qb-button-set {float: left;}");
+        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;} .qbBlockedLink {text-decoration: underline line-through;} .qb-button-set {float: left;} .hide-post-button { float: none !important; }");
         qbCSS.appendTo(document.head);
     }
 
@@ -496,7 +496,7 @@ function qbmain() {
             .addClass("qb-button-set")
             .append(hidePosterButton, hidePosterFinalButton, hidePosterCancelButton);
 
-        $(".hide-reply-button", postContainer)
+        $(".hide-reply-button, .hide-post-button", postContainer).first()
             .after(hideButtonSet)
             .prependTo(hideButtonSet);
     }
