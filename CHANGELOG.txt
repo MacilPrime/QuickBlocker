@@ -1,3 +1,6 @@
+(2014/03/04) - v1.12
+- Updated for more 4chan X v3 changes.
+
 (2013/05/19) - v1.11
 - Updated for 4chan X v3.
 
