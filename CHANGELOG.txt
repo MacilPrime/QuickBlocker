@@ -1,4 +1,7 @@
-(2013/05/19) - v1.12
+(2014/04/05) - v1.13
+-Cosmetic fix for Firefox QB buttons breaking.
+
+(2014/03/04) - v1.12
 - Updated for new 4chan X filter buttons. Only install if you have versions v3.19.0 (Mayhem) or v3.12.1 (ihavenoface).
 - Added a breakspace character before the element to prevent a wrapping error.
 
