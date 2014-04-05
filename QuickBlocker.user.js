@@ -5,7 +5,7 @@
 // @author       Eddy
 // @include      http*://boards.4chan.org/b/res/*
 // @updateURL    https://raw.github.com/specialeddy/QuickBlocker/master/QuickBlocker.user.js
-// @version      1.12
+// @version      1.13
 // @icon         http://i.imgur.com/aUTYg.png
 // ==/UserScript==
 
@@ -275,7 +275,7 @@ function qbmain() {
 
     function setupCSS() {
         var qbCSS = $("<style/>");
-        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;} .qbBlockedLink {text-decoration: underline line-through;} .qb-button-set {float: left;}");
+        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;} .qbBlockedLink {text-decoration: underline line-through;} .qb-button-set {float: left;} .hide-post-button { float: none !important; }");
         qbCSS.appendTo(document.head);
     }
 
