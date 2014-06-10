@@ -3,9 +3,9 @@
 // @namespace    eddy
 // @description  Quickly block a single poster on /b/
 // @author       Eddy
-// @include      http*://boards.4chan.org/b/res/*
+// @include      http*://boards.4chan.org/b/thread/*
 // @updateURL    https://raw.github.com/specialeddy/QuickBlocker/master/QuickBlocker.user.js
-// @version      1.13
+// @version      1.14
 // @icon         http://i.imgur.com/aUTYg.png
 // ==/UserScript==
 
