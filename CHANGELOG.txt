@@ -1,3 +1,6 @@
+(2014/09/15) - v1.16
+-Added CSS for a hand cursor when you hover over the new buttons, as if it were a link
+
 (2014/09/15) - v1.15
 -Updated to jQuery 2.1.0
 -Added graphics replacing the original [ -- ], [ -! ] and [ .. ] buttons to match the new 4chan X filter buttons for a more native look
