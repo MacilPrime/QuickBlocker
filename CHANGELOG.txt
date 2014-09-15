@@ -1,3 +1,7 @@
+(2014/06/09) - v1.15
+-Updated to jQuery 2.1.0
+-Added graphics replacing the original [ -- ], [ -! ] and [ .. ] buttons to match the new 4chan X filter buttons for a more native look
+
 (2014/06/09) - v1.14
 -Fixed script breaking from the switch to /b/thread/* URLs (/b/res/* is now deprecated)
 
