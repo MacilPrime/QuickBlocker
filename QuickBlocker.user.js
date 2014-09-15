@@ -7,7 +7,7 @@
 // @include      http*://boards.4chan.org/b/thread/*
 // @updateURL    https://raw.github.com/specialeddy/QuickBlocker/master/QuickBlocker.user.js
 // @version      1.16
-// @icon         http://i.imgur.com/aUTYg.png
+// @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANNJREFUeNrkl0sOwyAQQ8H36ul7MKJEEa0iPmPPFBZlgbJAfgYmBnIpJd2tfixo+epu+EpwNXDCK/id88+Jrw8uVfgK8NMA0saGkbvvJVJnONLAbF9UAxYNsEKR45vwVvFZBVvjesXcnbligAFPl50xwIJNe24xoIDNBTcyoILphLMUHaNDJdxMmI1oOl57AOVsgCe5PEFEw5X/PARurWrGALxgjwFEzFg1gKisVgwg6pBQDCAKrBiAJ1i846eXCfVWa9H436vz9hfL1rfatlfqIcAAcBeePao2b20AAAAASUVORK5CYII=
 // ==/UserScript==
 
 /*! jQuery v2.1.0 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
