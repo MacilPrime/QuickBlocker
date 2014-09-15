@@ -2,6 +2,7 @@
 // @name         Quick Blocker
 // @namespace    eddy
 // @description  Quickly block a single poster on /b/
+// @author       Macil
 // @author       Eddy
 // @include      http*://boards.4chan.org/b/thread/*
 // @updateURL    https://raw.github.com/specialeddy/QuickBlocker/master/QuickBlocker.user.js
