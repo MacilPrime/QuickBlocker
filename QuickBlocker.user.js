@@ -6,7 +6,7 @@
 // @author       Eddy
 // @include      http*://boards.4chan.org/b/thread/*
 // @updateURL    https://raw.github.com/specialeddy/QuickBlocker/master/QuickBlocker.user.js
-// @version      1.16
+// @version      1.17
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANNJREFUeNrkl0sOwyAQQ8H36ul7MKJEEa0iPmPPFBZlgbJAfgYmBnIpJd2tfixo+epu+EpwNXDCK/id88+Jrw8uVfgK8NMA0saGkbvvJVJnONLAbF9UAxYNsEKR45vwVvFZBVvjesXcnbligAFPl50xwIJNe24xoIDNBTcyoILphLMUHaNDJdxMmI1oOl57AOVsgCe5PEFEw5X/PARurWrGALxgjwFEzFg1gKisVgwg6pBQDCAKrBiAJ1i846eXCfVWa9H436vz9hfL1rfatlfqIcAAcBeePao2b20AAAAASUVORK5CYII=
 // ==/UserScript==
 
@@ -469,7 +469,6 @@ function qbmain() {
         
         var posteruid = $(".posteruid", postContainer).first().text();
         var hidePosterButton = $("<br/><img/>")
-            .text("[ -- ]")
             .addClass("hide_poster_button")
             .attr("href","javascript:;")
             .attr("src","data:image/gif;base64,R0lGODlhCwALAJECAP///8IAAP///wAAACH5BAEAAAIALAAAAAALAAsAAAIcFI5owd0XgItRUmYhvtVZ/Elh9oDcpk2YkSRCAQA7")
@@ -477,7 +476,6 @@ function qbmain() {
                 prepareBlock(posteruid);
             });
         var hidePosterFinalButton = $("<br/><img/>")
-            .text("[ -! ]")
             .addClass("hide_poster_final_button")
             .attr("href","javascript:;")
             .attr("src","data:image/gif;base64,R0lGODlhCwALAJECAP///8IAAP///wAAACH5BAEAAAIALAAAAAALAAsAAAIbFI5owd33AniTzSrxpVFryTkOZIEWJkpGkggFADs=")
@@ -486,7 +484,6 @@ function qbmain() {
                 blockPosterID(postContainer);
             });
         var hidePosterCancelButton = $("<img/>")
-            .text("[ .. ]")
             .addClass("hide_poster_cancel_button")
             .attr("href","javascript:;")
             .attr("src","data:image/gif;base64,R0lGODlhCwALAJECAP///2FhYf///wAAACH5BAEAAAIALAAAAAALAAsAAAIbFI5owd3nInQTAnbDtfrpnVHghIXRdz5GkggFADs=")
