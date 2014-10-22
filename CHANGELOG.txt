@@ -1,3 +1,63 @@
+(2014/09/16) - v1.17
+-Hotfix removing the old leftover button text for Firefox users.
+
+(2014/09/15) - v1.16
+-Added CSS for a hand cursor when you hover over the new buttons, as if it were a link
+
+(2014/09/15) - v1.15
+-Updated to jQuery 2.1.0
+-Added graphics replacing the original [ -- ], [ -! ] and [ .. ] buttons to match the new 4chan X filter buttons for a more native look
+
+(2014/06/09) - v1.14
+-Fixed script breaking from the switch to /b/thread/* URLs (/b/res/* is now deprecated)
+
+(2014/04/05) - v1.13
+-Cosmetic fix for Firefox QB buttons breaking.
+
+(2014/03/04) - v1.12
+- Updated for new 4chan X filter buttons. Only install if you have versions v3.19.0 (Mayhem) or v3.12.1 (ihavenoface).
+- Added a breakspace character before the element to prevent a wrapping error.
+
+(2013/05/19) - v1.11
+- Updated for 4chan X v3.
+
+(2013/04/27) - v1.10
+- Fix jQuery conflict issues.
+- Upgrade jQuery to v2.0.0.
+
+(2012/06/27) - v1.9
+- When a new post is loaded, check if it's a blocked ID before checking the
+  post content.
+
+(2012/06/27) - v1.8
+- Efficiency+responsiveness improvements:
+- Use native SHA1 in Firefox with Scriptish.
+- Run post content checks over time rather than all at once.
+
+(2012/06/26) - v1.7
+- Put strikethrough on blocked posts.
+
+(2012/06/26) - v1.6
+- Includes jQuery source, loads much faster now.
+
+(2012/06/18) - v1.5
+- Blocks by post content too now. All posts that are blocked are remembered,
+  and if they're seen again those posters are blocked too.
+
+(2012/06/18) - v1.4
+- Fixed issue where [ -- ] button was above [ - ] button in Chrome for live-
+  loaded posts.
+
+(2012/06/18) - v1.3
+- Fix it so you can always see blocked posts in 4chan X's quote previews.
+
+(2012/06/10) - v1.2
+- Works with Aeosynth 4chan X live-loading of posts.
+- Remove dependency on 4chan X.
+
+(2012/06/09) - v1.1
+- Detects Aeosynth 4chan X too now.
+
 (2012/06/09) - v1.0
 - Initial version. Works for posts already on the page and live-loaded posts,
   and remembers the blocked IDs for the session.
