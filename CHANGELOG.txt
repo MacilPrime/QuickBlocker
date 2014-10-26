@@ -1,3 +1,6 @@
+(2014/10/25) - v1.18
+-Quickblocker should now be universally compatible with 4chanX, AppchanX, and vanilla 4chan. No dependencies needed anymore!
+
 (2014/09/16) - v1.17
 -Hotfix removing the old leftover button text for Firefox users.
 
