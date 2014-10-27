@@ -6,7 +6,7 @@
 // @author       Eddy
 // @include      http*://boards.4chan.org/b/thread/*
 // @updateURL    https://raw.github.com/specialeddy/QuickBlocker/master/QuickBlocker.user.js
-// @version      1.20.3
+// @version      1.20.2
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANNJREFUeNrkl0sOwyAQQ8H36ul7MKJEEa0iPmPPFBZlgbJAfgYmBnIpJd2tfixo+epu+EpwNXDCK/id88+Jrw8uVfgK8NMA0saGkbvvJVJnONLAbF9UAxYNsEKR45vwVvFZBVvjesXcnbligAFPl50xwIJNe24xoIDNBTcyoILphLMUHaNDJdxMmI1oOl57AOVsgCe5PEFEw5X/PARurWrGALxgjwFEzFg1gKisVgwg6pBQDCAKrBiAJ1i846eXCfVWa9H436vz9hfL1rfatlfqIcAAcBeePao2b20AAAAASUVORK5CYII=
 // ==/UserScript==
 
@@ -514,7 +514,6 @@ function qbmain() {
 
     function setupNewPostListener() {
         $(document).on("DOMNodeInserted", function(event) {
-            updateBlockedCount();
             var tag = $(event.target);
             if(tag.hasClass("replyContainer")) {
                 if(!tag.parent().is(".inline, #qp")) {
@@ -526,6 +525,7 @@ function qbmain() {
                         updateBlockedCount();
                     } else if(checkPostContent(tag)) {
                         blockID(posteruid);
+                        updateBlockedCount();
                     }
                 } else {
                     // Always show inlined posts
