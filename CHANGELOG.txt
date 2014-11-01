@@ -1,3 +1,6 @@
+(2014/11/01) - v1.21
+-Fix quote crossout not working on new replies until the blocked poster posts again.
+
 (2014/10/25) - v1.20
 -Restored blocked quote crossout functionality
 
