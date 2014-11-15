@@ -276,7 +276,7 @@ function qbmain() {
 
     function setupCSS() {
         var qbCSS = $("<style/>");
-        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_final_button {color: red;} .hide_poster_cancel_button {color: green;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block;} .qbBlockedLink {text-decoration: underline line-through;} .qb-button-set {float: left;} .hide-post-button { float: none !important; } img.hide_poster_button:hover, img.hide_poster_final_button:hover, img.hide_poster_cancel_button:hover { cursor:pointer; }");
+        qbCSS.html(".qbPosterBlockedMessage {color: red;} .hide_poster_button, .hide_poster_final_button, .hide_poster_cancel_button {display: block; margin: 0px 0px 3px;} .qbBlockedLink {text-decoration: underline line-through;} .qb-button-set {float: left;} .hide-post-button { float: none !important; } img.hide_poster_button:hover, img.hide_poster_final_button:hover, img.hide_poster_cancel_button:hover { cursor:pointer; }");
         qbCSS.appendTo(document.head);
     }
 
@@ -468,16 +468,14 @@ function qbmain() {
         }
         
         var posteruid = $(".posteruid", postContainer).first().text();
-        var hidePosterButton = $("<br/><img/>")
+        var hidePosterButton = $("<img/>")
             .addClass("hide_poster_button")
-            .attr("href","javascript:;")
             .attr("src","data:image/gif;base64,R0lGODlhCwALAJECAP///8IAAP///wAAACH5BAEAAAIALAAAAAALAAsAAAIcFI5owd0XgItRUmYhvtVZ/Elh9oDcpk2YkSRCAQA7")
             .click(function() {
                 prepareBlock(posteruid);
             });
-        var hidePosterFinalButton = $("<br/><img/>")
+        var hidePosterFinalButton = $("<img/>")
             .addClass("hide_poster_final_button")
-            .attr("href","javascript:;")
             .attr("src","data:image/gif;base64,R0lGODlhCwALAJECAP///8IAAP///wAAACH5BAEAAAIALAAAAAALAAsAAAIbFI5owd33AniTzSrxpVFryTkOZIEWJkpGkggFADs=")
             .hide()
             .click(function() {
@@ -485,7 +483,6 @@ function qbmain() {
             });
         var hidePosterCancelButton = $("<img/>")
             .addClass("hide_poster_cancel_button")
-            .attr("href","javascript:;")
             .attr("src","data:image/gif;base64,R0lGODlhCwALAJECAP///2FhYf///wAAACH5BAEAAAIALAAAAAALAAsAAAIbFI5owd3nInQTAnbDtfrpnVHghIXRdz5GkggFADs=")
             .hide()
             .click(function() {
