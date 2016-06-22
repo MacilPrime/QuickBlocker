@@ -1,10 +1,13 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name         Quick Blocker
 // @namespace    eddy
-// @description  Quickly block a single poster on /b/
+// @description  Quickly block a single poster by ID on 4chan
 // @author       Macil
 // @author       Eddy
-// @include      http*://boards.4chan.org/b/thread/*
+// @include      http*://boards.4chan.org/biz/thread/*
+// @include      http*://boards.4chan.org/pol/thread/*
+// @include      http*://boards.4chan.org/qst/thread/*
+// @include      http*://boards.4chan.org/soc/thread/*
 // @updateURL    https://raw.github.com/specialeddy/QuickBlocker/master/QuickBlocker.user.js
 // @version      1.22
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANNJREFUeNrkl0sOwyAQQ8H36ul7MKJEEa0iPmPPFBZlgbJAfgYmBnIpJd2tfixo+epu+EpwNXDCK/id88+Jrw8uVfgK8NMA0saGkbvvJVJnONLAbF9UAxYNsEKR45vwVvFZBVvjesXcnbligAFPl50xwIJNe24xoIDNBTcyoILphLMUHaNDJdxMmI1oOl57AOVsgCe5PEFEw5X/PARurWrGALxgjwFEzFg1gKisVgwg6pBQDCAKrBiAJ1i846eXCfVWa9H436vz9hfL1rfatlfqIcAAcBeePao2b20AAAAASUVORK5CYII=
@@ -435,7 +438,8 @@ function qbmain() {
             var post = $(this);
             var posteruid = $(".posteruid", post).first().text();
             if(posteruid === id) {
-                $(".post", post).css("background-color","red");
+                $(".post", post).css({"opacity":"0.5"});
+                $(".post", post).children(".postInfo").children(".nameBlock").prepend("<span class='qbBlockWarning' style='color:white;display:inline;background-color:red;border-style:solid;border-width:1px;padding:1px 2px;-webkit-animation: .75s cubic-bezier(0, 1, 0, 1) 0s normal none infinite running blink;-moz-animation: .75s cubic-bezier(0, 1, 0, 1) 0s normal none infinite running blink;-ms-animation: .75s cubic-bezier(0, 1, 0, 1) 0s normal none infinite running blink;-o-animation: .75s cubic-bezier(0, 1, 0, 1) 0s normal none infinite running blink;animation: .75s cubic-bezier(0, 1, 0, 1) 0s normal none infinite running blink'>BLOCK</span><span class='qbBlockWarning'> </span>");
                 $(".hide_poster_button", post).hide();
                 $(".hide_poster_final_button", post).show();
                 $(".hide_poster_cancel_button", post).show();
@@ -451,7 +455,8 @@ function qbmain() {
             var post = $(this);
             var posteruid = $(".posteruid", post).first().text();
             if(posteruid === prepareID) {
-                $(".post", post).css("background-color","");
+                $(".post", post).css({"opacity":""});
+                $(".qbBlockWarning").remove();
                 $(".hide_poster_button", post).show();
                 $(".hide_poster_final_button", post).hide();
                 $(".hide_poster_cancel_button", post).hide();
