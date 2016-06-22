@@ -1,3 +1,11 @@
+(2016/06/22) - v1.22
+- Run on /biz/, /pol/, /qst/, and /soc/ as they are the only boards with IDs as of this time
+- Add 3 px bottom margin to separate buttons a bit
+- Change look of block warning, post will now be faded and a flashing warning will appear next to the poster name when you click the X button
+- Remove old unused text color CSS
+- Remove unnecessary <br/> tags and unneeded javascript hrefs, since these are not needed anymore
+- Reduce code redundancy
+
 (2014/11/01) - v1.21
 -Fix quote crossout not working on new replies until the blocked poster posts again.
 
